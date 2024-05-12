@@ -1,4 +1,5 @@
 import React from "react";
+import logOutImg from "../assets/images/logout.png";
 
 const NavBar = () => {
   return (
@@ -9,14 +10,14 @@ const NavBar = () => {
 
       <nav className="nav justify-end font-semibold text-lg">
         <ul className="flex items-center">
-          <li className="p-4 border-b-2 border-white border-opacity-0 hover:border-opacity-100 hover:text-white duration-200 cursor-pointer active">
-            <a href="/dashboard">Home</a>
-          </li>
           <li className="p-4 border-b-2 border-white border-opacity-0 hover:border-opacity-100 hover:twhite duration-200 cursor-pointer">
-            <a href="/dashboard">Books</a>
+            <a href="/books">Books</a>
           </li>
           <li className="p-4 border-b-2 border-white border-opacity-0 hover:border-opacity-100 hover:text-white duration-200 cursor-pointer">
-            <a href="/dashboard">Cart</a>
+            <a href="/cart">Cart</a>
+          </li>
+          <li className="p-4 border-b-2 border-white border-opacity-0 hover:border-opacity-100 hover:text-white duration-200 cursor-pointer">
+            <img className="h-[20px] w-[20px]" src={logOutImg} alt="" />
           </li>
         </ul>
       </nav>

@@ -2,8 +2,6 @@ const signInModal = require("../../modal/accounts/signIn");
 const signUpModal = require("../../modal/accounts/signUp");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const connectDB = require("../../database/config");
-connectDB();
 
 exports.signInUser = async (req, res) => {
   try {

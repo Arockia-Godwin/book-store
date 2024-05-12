@@ -3,6 +3,10 @@ const db = require("./src/database/config");
 var cors = require("cors");
 const router = require("./src/routes/accounts/signUp");
 const signInRoute = require("./src/routes/accounts/signIn");
+const books = require("./src/routes/books/index");
+const orders = require("./src/routes/cart/index");
+const connectDB = require("./src/database/config");
+connectDB();
 
 const app = express();
 
@@ -20,3 +24,17 @@ app.use(cors(corsOpts));
 app.use(express.json());
 app.use("/api/book-store", router);
 app.use("/api/book-store", signInRoute);
+app.use("/api/book-store/books", books);
+app.use("/api/book-store/cart", orders);
+
+// const verifyToken = (req, res, next) => {
+//   const bearerToken = req.headers["authorization"];
+//   if (typeof bearerToken !== undefined) {
+//     const bearer = bearerToken.split(" ");
+//     const token = bearer[1];
+//     req.token = token;
+//     next();
+//   } else {
+//     res.sendStatus(403);
+//   }
+// };

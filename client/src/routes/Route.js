@@ -10,6 +10,8 @@ import {
 
 // import SignUp from "../pages/Accounts/SignUp";
 import Dashboard from "../pages/Dashboard";
+import Books from "../pages/Books";
+import Cart from "../pages/Cart";
 import Login from "../pages/Accounts/Login";
 
 let userData;
@@ -66,6 +68,8 @@ const ReactRoute = ({ user }) => {
       <Routes>
         <Route element={<UserRoute />}>
           <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/books" element={<Books />} />
+          <Route exact path="/cart" element={<Cart />} />
         </Route>
         <Route element={<AccountRoute />}>
           <Route exact path="/signup" element={<Login />} />

@@ -1,7 +1,5 @@
 const signUpModal = require("../../modal/accounts/signUp");
 const bcrypt = require("bcrypt");
-const connectDB = require("../../database/config");
-connectDB();
 
 exports.createUser = async (req, res) => {
   try {
