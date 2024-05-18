@@ -4,7 +4,8 @@ var cors = require("cors");
 const router = require("./src/routes/accounts/signUp");
 const signInRoute = require("./src/routes/accounts/signIn");
 const books = require("./src/routes/books/index");
-const orders = require("./src/routes/cart/index");
+const cart = require("./src/routes/cart/index");
+const orders = require("./src/routes/orders/index");
 const connectDB = require("./src/database/config");
 connectDB();
 
@@ -25,7 +26,8 @@ app.use(express.json());
 app.use("/api/book-store", router);
 app.use("/api/book-store", signInRoute);
 app.use("/api/book-store/books", books);
-app.use("/api/book-store/cart", orders);
+app.use("/api/book-store/cart", cart);
+app.use("/api/book-store/orders", orders);
 
 // const verifyToken = (req, res, next) => {
 //   const bearerToken = req.headers["authorization"];

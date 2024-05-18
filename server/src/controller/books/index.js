@@ -17,8 +17,8 @@ const addBook = async (req, res) => {
 
 const getAllBook = async (req, res) => {
   console.log("HEEE", req.headers);
-  const auth = await verifyToken(req.headers["authorization"], res);
-  console.log("AUTH", auth);
+  // const auth = await verifyToken(req.headers["authorization"], res);
+
   try {
     const data = await BooksModel.find();
     res.status(200).json({ data: data });

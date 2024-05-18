@@ -1,12 +1,18 @@
 import React from "react";
+import defaultImg from "../assets/images/deafault-book.png";
 
-const Card = ({ data, type }) => {
+const Card = ({ data, addToCart }) => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="shadow-lg rounded-lg max-w-sm bg-[#979797]">
-        <img
+        {/* <img
           className="rounded-tl-lg rounded-tr-lg w-full h-[100px] object-contain"
           src={data.image}
+          alt={data.name}
+        /> */}
+        <img
+          className="rounded-tl-lg mb-2 rounded-tr-lg w-full h-[100px] object-contain"
+          src={defaultImg}
           alt={data.name}
         />
 
@@ -22,9 +28,15 @@ const Card = ({ data, type }) => {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-3xl mr-4 text-gray-900 dark:text-white">
-              {data.price}
+              Rs. {data.price}
             </span>
-            {type === "books" ? (
+            <button
+              onClick={(e) => addToCart(data)}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Add to cart
+            </button>
+            {/* {type === "books" ? (
               <a
                 href="/books"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -38,7 +50,7 @@ const Card = ({ data, type }) => {
               >
                 Add to cart
               </a>
-            )}
+            )} */}
           </div>
         </div>
       </div>
