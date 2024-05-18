@@ -52,11 +52,11 @@ const LoginForm = ({ loginData, navigateToPage, onSubmit }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       {getFormElement()}
 
-      <div className="w-full mb-6 flex justify-center items-center">
+      {/* <div className="w-full mb-6 flex justify-center items-center">
         <div className="w-1/2 flex justify-end items-center">
           <span className="text-white text-lg">Forgot Password?</span>
         </div>
-      </div>
+      </div> */}
 
       <div className="w-full flex justify-center items-center">
         <button

@@ -12,7 +12,7 @@ exports.createUser = async (req, res) => {
     var existingPhone = await signUpModal.findOne({ phone }).exec();
 
     if (existingEmail || existingPhone) {
-      return res.status(200).json({
+      return res.status(400).json({
         success: false,
         message: `${
           existingEmail ? "Email Id" : "Phone nummber"
@@ -21,7 +21,7 @@ exports.createUser = async (req, res) => {
     }
 
     if (data.password !== data.confirmPassword) {
-      return res.status(200).json({
+      return res.status(400).json({
         success: false,
         message: `Password and confirm password does not match`,
       });
@@ -49,8 +49,8 @@ exports.createUser = async (req, res) => {
 
     await signUpModal
       .create(data)
-      .then((createdTask) => {
-        if (!createdTask)
+      .then((userData) => {
+        if (!userData)
           return res.status(404).json({
             success: false,
             message: "Task creation failed",
@@ -58,13 +58,14 @@ exports.createUser = async (req, res) => {
           });
         res.status(200).json({
           success: true,
-          createdTask,
+          userData,
+          message: "User added successfully!",
         });
       })
       .catch((error) => {
         res.status(404).json({
           success: false,
-          error: error.message,
+          error: error.message || "Something went wrong!",
         });
       });
   } catch (error) {

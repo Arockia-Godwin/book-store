@@ -3,6 +3,8 @@ import BookForm from "../../components/AddBookForm";
 import NavBar from "../../components/navBar";
 import { addBooks } from "./helper";
 import { useNavigate } from "react-router-dom";
+import Toast from "../../components/Toast";
+import { toast } from "react-toastify";
 
 const bookData = [
   {
@@ -54,9 +56,12 @@ const AddBooks = () => {
     await addBooks(data).then((response) => {
       console.log("RESS", response);
       if (response.status === 200) {
-        navigateTo("/books");
+        toast.success(response.data.message);
+        setTimeout(() => {
+          navigateTo("/books");
+        }, 3000);
       } else {
-        console.log("HERE");
+        toast.error(response.data?.message || "Something went wrong");
       }
     });
   };
@@ -70,6 +75,7 @@ const AddBooks = () => {
           </div>
         </div>
       </div>
+      <Toast />
     </div>
   );
 };

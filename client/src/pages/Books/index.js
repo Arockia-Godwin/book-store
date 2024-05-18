@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../../components/navBar";
 import Card from "../../components/card";
 import { addBooksToCart, getBooks, getCart, getFilteredBooks } from "./helper";
+import Toast from "../../components/Toast";
+import { toast } from "react-toastify";
 
 const Books = () => {
   // let data = [
@@ -17,6 +19,7 @@ const Books = () => {
 
   const [books, setBooks] = useState([]);
   const [cartList, setCartList] = useState([]);
+  const [selectedBook, setSelectedBook] = useState("");
   // let bookList = [];
 
   useEffect(() => {
@@ -49,14 +52,18 @@ const Books = () => {
     });
   };
 
+  const onFilter = async (e) => {
+    setSelectedBook(e.target.value);
+  };
+
   const onSearch = async (e) => {
-    if (e.target.value.length) {
-      await getFilteredBooks(e.target.value).then((response) => {
+    if (selectedBook) {
+      await getFilteredBooks(selectedBook).then((response) => {
         console.log("RESS", response);
         if (response.status === 200) {
           setBooks(response.data.data);
         } else {
-          console.log("HERE");
+          toast.error(response?.data.message || "Something went wrong!");
         }
       });
     } else {
@@ -67,9 +74,9 @@ const Books = () => {
   const addToCart = async (data) => {
     await getCartList();
     let book = cartList.filter((obj) => obj._id === data._id);
-    console.log("CART", cartList);
+
     if (book.length) {
-      console.log("Already Added to cart");
+      toast.error("Item already Added to cart");
       return;
     }
     if (data.quantity > 0) {
@@ -77,13 +84,13 @@ const Books = () => {
       await addBooksToCart(data).then((response) => {
         console.log("RESS", response);
         if (response.status === 200) {
-          console.log("HERE", response);
+          toast.success(response.data.message);
         } else {
-          console.log("HERE");
+          toast.error(response.data?.message || "Something went wrong!");
         }
       });
     } else {
-      console.log("Quantity is low");
+      toast.error("Quantiy is low");
     }
   };
 
@@ -93,19 +100,27 @@ const Books = () => {
       <div className="w-full flex  items-center justify-center">
         <div className="w-[80%] flex flex-col">
           <NavBar />
-          <div className="flex w-full">
-            <div className="flex w-full justify-end">
-              <input
-                placeholder="Search"
-                onChange={onSearch}
-                className="h-10 p-2 mr-2 w-[16rem] rounded-md my-2"
-              />
+          <div className="flex justify-between w-full mx-8">
+            <div>
               <a
                 href="/books/add"
-                className="bg-[#D87D4A] h-10 rounded-md text-white px-6 py-2 roundwd-md my-2"
+                className="bg-[#D87D4A] h-10 rounded-md text-white w-[9rem] flex justify-center items-center my-2"
               >
                 Add Books
               </a>
+            </div>
+            <div className="flex w-full justify-end">
+              <input
+                placeholder="Search"
+                onChange={onFilter}
+                className="h-10 p-2 mr-2 w-[16rem] rounded-md my-2"
+              />
+              <button
+                onClick={() => onSearch()}
+                className="bg-[#D87D4A] h-10 rounded-md text-white px-6 py-2 roundwd-md my-2"
+              >
+                Search
+              </button>
             </div>
           </div>
           <div className="w-full my-4 h-[80vh] overflow-y-scroll no-scrollbar flex justify-center items-center flex-wrap">
@@ -119,6 +134,7 @@ const Books = () => {
           </div>
         </div>
       </div>
+      <Toast />
     </div>
   );
 };

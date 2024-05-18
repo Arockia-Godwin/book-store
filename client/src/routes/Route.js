@@ -69,6 +69,7 @@ const ReactRoute = ({ user }) => {
       <Routes>
         <Route element={<UserRoute />}>
           <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/books" element={<Books />} />
           <Route exact path="/cart" element={<Cart />} />
           <Route exact path="/books/add" element={<AddBooks />} />

@@ -5,6 +5,8 @@ import signInBg from "../../assets/images/login-bg.svg";
 import LoginForm from "../../components/LoginForm";
 import SignUpForm from "../../components/SignUpForm";
 import { signupUser, loginUser } from "./helper";
+import Toast from "../../components/Toast";
+import { toast } from "react-toastify";
 
 // import SignUpForm from "../components/SignUpForm";
 
@@ -16,9 +18,9 @@ const Login = () => {
   const loginData = [
     {
       name: "phone",
-      placeholder: "Phone or email",
+      placeholder: "Phone",
       rules: {
-        required: "Phone or email is required",
+        required: "Phone is required",
       },
       type: "text",
     },
@@ -63,9 +65,9 @@ const Login = () => {
     },
     {
       name: "phone",
-      placeholder: "Phone or email",
+      placeholder: "Phone",
       rules: {
-        required: "Phone or email is required",
+        required: "Phone is required",
       },
       type: "text",
     },
@@ -87,12 +89,16 @@ const Login = () => {
     },
   ];
 
-  const signUp = async ({ data }) => {
-    await signupUser(data, dispatch).then((response) => {
-      if (!response.success) {
-        console.log("HERE", data);
+  const signUp = async (data) => {
+    await signupUser(data).then((response) => {
+      console.log("RESSSSSSS", response);
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        setTimeout(() => {
+          navigateToPage("/signin");
+        });
       } else {
-        console.log("HERE", data);
+        toast.error(response.data?.message || "Something went wrong");
       }
     });
   };
@@ -100,13 +106,12 @@ const Login = () => {
   const signIn = async (data) => {
     console.log("DATAT", data);
     await loginUser(data, dispatch).then((response) => {
-      console.log("RESS", response);
-      if (response.status) {
-        console.log("HERE", data);
-        localStorage.setItem("userData", response.token);
+      if (response.status === 200) {
+        console.log("RESSPOBBBBB", response.data.token);
+        localStorage.setItem("userData", response.data.token);
         navigateToPage("/dashboard");
       } else {
-        console.log("HERE", data);
+        toast.error(response.data.message);
       }
     });
   };
@@ -169,6 +174,7 @@ const Login = () => {
           <div className="my-2 w-full">{getComponent()}</div>
         </div>
       </div>
+      <Toast />
     </div>
   );
 };

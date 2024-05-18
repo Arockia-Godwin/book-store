@@ -33,6 +33,6 @@ exports.signInUser = async (req, res) => {
     console.log("HERE", req.body, user);
     res.status(200).json({ token, status: true, message: "Login success !" });
   } catch (error) {
-    res.status(500).json({ status: false, error: "Login failed" });
+    res.status(500).json({ status: false, message: "Login failed" });
   }
 };

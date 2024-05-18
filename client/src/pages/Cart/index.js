@@ -3,6 +3,8 @@ import NavBar from "../../components/navBar";
 import { getCart, placeOrder } from "./helper";
 import noItemsImg from "../../assets/images/no-item-found.png";
 import checkImg from "../../assets/images/check.webp";
+import Toast from "../../components/Toast";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -26,8 +28,9 @@ const Cart = () => {
       console.log("RESS", response);
       if (response.status === 200) {
         // bookList = response.data.data;
-        console.log("TOTTT", total);
+        // console.log("TOTTT", total);
         setCart(response.data.data);
+
         response.data.data.map((obj) => {
           let temp = total;
           let price = obj.quantity * obj.price;
@@ -35,6 +38,7 @@ const Cart = () => {
           console.log("TOTTT", total, price);
         });
       } else {
+        // toast.error(response.data.message);
       }
     });
   };
@@ -59,7 +63,9 @@ const Cart = () => {
       if (response.status === 200) {
         setCheckout(true);
         console.log(response.data.message);
+        toast.success(response.data.message);
       } else {
+        toast.error(response.data?.message || "Something went wrong!");
       }
     });
   };
@@ -230,6 +236,7 @@ const Cart = () => {
           {checkout ? checkOutData() : cartData()}
         </div>
       </div>
+      <Toast />
     </div>
   );
 };

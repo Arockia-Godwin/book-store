@@ -1,28 +1,26 @@
 import axios from "../../axiosConfig";
-import {
-  signupUserError,
-  signupUserInProgress,
-  signupUserSuccess,
-} from "../../redux/reducers/Auth/index";
 
-const signupUser = async (user, dispatch) => {
+const signupUser = async (user) => {
+  console.log("USERRRR", user);
   try {
-    dispatch(signupUserInProgress());
-    let response = await axios.post("/signup", user);
-    if (response.status) {
-      dispatch(signupUserSuccess());
-    } else {
-      dispatch(signupUserError(response));
+    let response;
+    try {
+      response = await axios.post("/signup", user);
+    } catch (error) {
+      response = error;
     }
-    return response.data;
+    console.log("HEREEE", response);
+    return response.response || response;
   } catch (error) {
-    await dispatch(signupUserError());
+    return {
+      status: 500,
+      message: "Something went wrong!",
+    };
   }
 };
 
 const loginUser = async (user, dispatch) => {
   try {
-    console.log("HEREEE");
     // dispatch(signupUserInProgress());
     let response;
     try {
@@ -30,15 +28,13 @@ const loginUser = async (user, dispatch) => {
     } catch (error) {
       response = error;
     }
-    console.log("RESS", response);
-    if (response.success) {
-      // dispatch(signupUserSuccess());
-    } else {
-      // dispatch(signupUserError(response));
-    }
-    return response.data;
+    console.log("HEREEE", response);
+    return response.response || response;
   } catch (error) {
-    await dispatch(signupUserError());
+    return {
+      status: 500,
+      message: "Something went wrong!",
+    };
   }
 };
 

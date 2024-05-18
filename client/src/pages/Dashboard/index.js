@@ -30,12 +30,12 @@ const Dashboard = () => {
                 divorce collection of books to ignite your imagination and
                 curiosity!
               </p>
-              <button
-                onClick={navigateTo("/books")}
-                className="bg-[#D87D4A] text-white px-6 py-3 roundwd-md my-2"
+              <a
+                href="/books"
+                className="bg-[#D87D4A] rounded-lg text-white px-6 py-3 roundwd-md my-2"
               >
                 BROWSE
-              </button>
+              </a>
             </div>
             <div className="h-[90vh] w-1/2 items-center justify-center p-8 flex flex-col">
               <img src={bookImg} alt="" />
